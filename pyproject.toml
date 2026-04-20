@@ -1,0 +1,57 @@
+[project]
+name = "taulab"
+version = "0.1.0"
+description = "TAU physics-lab helpers for marimo notebooks"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Tom Bleher", email = "tombleher@tauex.tau.ac.il" }]
+requires-python = ">=3.10"
+keywords = ["physics", "lab", "odr", "uncertainty", "marimo", "scipy", "metrology"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "pandas>=2.0",
+    "uncertainties>=3.1",
+    "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+marimo = ["marimo>=0.9"]
+dev = ["pytest>=7.0", "build", "twine"]
+
+[project.urls]
+Homepage = "https://github.com/tom-bleher/taulab"
+Repository = "https://github.com/tom-bleher/taulab"
+Issues = "https://github.com/tom-bleher/taulab/issues"
+Upstream = "https://github.com/itayf-tau/taulab"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["taulab"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "taulab/**",
+    "README.md",
+    "LICENSE",
+    "pyproject.toml",
+]
