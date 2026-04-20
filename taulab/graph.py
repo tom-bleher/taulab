@@ -1,5 +1,5 @@
 """Plotting helpers — ``Graph`` wraps a ``FitResult`` with data / fit / residuals
-painters and an optional 1-sigma confidence band computed from the parameter
+painters and an optional uncertainty confidence band computed from the parameter
 covariance.
 """
 from __future__ import annotations
@@ -16,7 +16,7 @@ class Graph:
 
     The three methods mirror how past lab notebooks draw their fits:
 
-    * ``plot(ax)`` — data with error bars + fit line + optional 1-sigma band.
+    * ``plot(ax)`` — data with error bars + fit line + optional uncertainty band.
     * ``residuals_plot(ax)`` — residuals with ``y_err`` bars and a zero line.
     * ``plot_with_residuals()`` — a ready-made two-panel figure combining
       both; returns ``(fig, (ax_fit, ax_res))`` for further customisation.
@@ -92,7 +92,7 @@ class Graph:
 
     # ---- internal -------------------------------------------------------
     def _band(self, xs: np.ndarray) -> np.ndarray:
-        """1-sigma band from parameter covariance, via numerical gradients."""
+        """uncertainty band from parameter covariance, via numerical gradients."""
         r = self.r
         if r.cov is None:
             return np.zeros_like(xs)

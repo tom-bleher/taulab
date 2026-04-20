@@ -102,7 +102,7 @@ class FitResult:
     Attributes
     ----------
     params, errors, error : np.ndarray
-        Best-fit parameters and their 1-sigma estimates.  ``error`` is a
+        Best-fit parameters and their uncertainty estimates.  ``error`` is a
         legacy alias for ``errors`` kept for reference-taulab compatibility.
     cov : np.ndarray | None
         Parameter covariance matrix.

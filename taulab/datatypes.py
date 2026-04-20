@@ -1,6 +1,6 @@
 """Physical-quantity datatypes.
 
-`PhysicalSize` carries a ``(value, 1-sigma)`` pair and delegates arithmetic to
+`PhysicalSize` carries a ``(value, uncertainty)`` pair and delegates arithmetic to
 the ``uncertainties`` package so that linear error propagation happens
 automatically.  It is intentionally interoperable with ``uncertainties.ufloat``:
 any expression mixing the two (``K * ps``, ``1 / ps``, ``ps / u``) returns the
@@ -20,7 +20,7 @@ __all__ = ["PhysicalSize", "Measurement", "ParseResult"]
 
 @dataclass(frozen=True)
 class PhysicalSize:
-    """A ``(value, 1-sigma)`` pair with uncertainty-propagating arithmetic.
+    """A ``(value, uncertainty)`` pair with uncertainty-propagating arithmetic.
 
     Mirrors ``taulab.datatypes.PhysicalSize`` from the reference library at the
     field level (``.value``, ``.uncertainty``), and delegates arithmetic to

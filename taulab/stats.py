@@ -1,9 +1,9 @@
-"""Statistics helpers with the 1-sigma conventions used across the TAU lab series.
+"""Statistics helpers with the conventions used across the TAU lab series.
 
 * ``resolution_sigma`` — rectangular reading window of full width ``resolution``
   maps to ``sigma = resolution / sqrt(12)``.
 * ``sem`` — standard error of the mean (``sigma_sample / sqrt(N)``, ddof=1).
-* ``combine`` — quadrature sum of independent 1-sigma contributions.
+* ``combine`` — quadrature sum of independent uncertainty contributions.
 * ``nsigma`` — two-value discrepancy ``|v1 - v2| / sqrt(s1^2 + s2^2)``.
 * ``weighted_mean`` — variance-weighted mean of independent measurements.
 """
@@ -37,7 +37,7 @@ def _unpack(x: Any) -> tuple[float, float]:
 
 
 def nsigma(v1: Any, v2: Any, *, signed: bool = False) -> float:
-    """Combined 1-sigma discrepancy between two measurements.
+    """Combined uncertainty discrepancy between two measurements.
 
     Returns ``|v1 - v2| / sqrt(sigma1^2 + sigma2^2)``, or the signed version
     if ``signed=True``.  An exact reference (``sigma = 0``) on either side is
@@ -53,7 +53,7 @@ def nsigma(v1: Any, v2: Any, *, signed: bool = False) -> float:
 
 
 def resolution_sigma(resolution: float) -> float:
-    """1-sigma of a uniform distribution whose full width equals ``resolution``."""
+    """uncertainty of a uniform distribution whose full width equals ``resolution``."""
     return float(resolution) / float(np.sqrt(12))
 
 
@@ -66,7 +66,7 @@ def sem(values: Iterable[float]) -> float:
 
 
 def combine(*sigmas: float) -> float:
-    """Quadrature sum of independent 1-sigma uncertainties."""
+    """Quadrature sum of independent uncertainty uncertainties."""
     total = 0.0
     for s in sigmas:
         s = float(s)

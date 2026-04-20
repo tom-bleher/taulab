@@ -44,7 +44,6 @@ mo.vstack([fit_callout(res), params_table(res, show_correlation=True)])
 
 - **Uncertainty arithmetic on `PhysicalSize`** via the `uncertainties` package.
 - **`stats`** — `resolution_sigma`, `sem`, `combine`, `weighted_mean`, `nsigma`, `drop_outliers`.
-- **`instruments`** — Keysight 34401A (resistance + DCV, auto-ranged), DSO7012A dual-cursor, ruler/caliper/micrometer, `reading_lsd`, `column_lsd`.
 - **ODR auto-seeded** for linear / polynomial / constant fits.
 - **`FitResult`** — `cov`, `correlation_matrix`, `pulls`, `quality`, `extrapolate`, `params_dict`.
 - **`Graph.plot_with_residuals`** with a 1-σ confidence band from the parameter covariance.

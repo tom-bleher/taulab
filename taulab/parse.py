@@ -15,10 +15,33 @@ import re
 from pathlib import Path
 from typing import Any
 
-from .datatypes import ParseResult
-from .io import read_table
+import pandas as pd
 
-__all__ = ["parse_csv_folder", "parse_excel_folder", "parse_filename_metadata"]
+from .datatypes import ParseResult
+
+
+__all__ = [
+    "read_table",
+    "parse_csv_folder",
+    "parse_excel_folder",
+    "parse_filename_metadata",
+]
+
+
+def read_table(path, **kwargs: Any) -> pd.DataFrame:
+    """Read a CSV or Excel file into a DataFrame with whitespace-normalised columns.
+
+    Dispatches on the file suffix (``.xlsx`` / ``.xls`` → :func:`pandas.read_excel`,
+    everything else → :func:`pandas.read_csv`) and strips non-breaking spaces and
+    surrounding whitespace from each column name — the two most common sources of
+    silent key mismatches when data comes out of spreadsheet tools.  Extra keyword
+    arguments forward verbatim to the underlying pandas reader.
+    """
+    path = Path(path)
+    df = (pd.read_excel(path, **kwargs) if path.suffix.lower() in {".xlsx", ".xls"}
+          else pd.read_csv(path, **kwargs))
+    df.columns = [str(c).replace("\xa0", " ").strip() for c in df.columns]
+    return df
 
 
 def parse_filename_metadata(filename: str, pattern: str) -> dict[str, Any]:
@@ -66,7 +89,7 @@ def parse_csv_folder(folder, *, filename_pattern: str | None = None,
     with :func:`re.search`; non-matching files are skipped and matching files
     contribute their ``groupdict()`` to ``ParseResult.metadata``.
 
-    Extra keyword arguments forward to :func:`taulab.io.read_table`.
+    Extra keyword arguments forward to ``pandas.read_csv``.
     """
     return _parse_folder(folder, ("*.csv",), filename_pattern, read_kwargs)
 
